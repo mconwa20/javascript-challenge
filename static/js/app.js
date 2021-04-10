@@ -12,7 +12,7 @@ var columns = ["datetime", "city", "state", "country", "shape", "durationMinutes
 // inputing data
 var addData = (dataInput) => {
     dataInput.forEach(ufoSightings => {
-        var row = tbody.append("tr");
+        var row = $tbody.append("tr");
         columns.forEach(column => row.append("td").text(ufoSightings[column])
         )
     });
@@ -22,16 +22,16 @@ addData(tableData);
 
 // event listener for the button
 
-button.on("click", () +> {
+button.on("click", () => {
 
     d3.event.preventDefault();
 
     var inputDate = inputFieldDate.property("value").trim();
     // console.log(inputDate)
     // trim inputs
-    var filterDate = tableData.filter(tableData +> tableData.datetime === inputDate);
+    var filterDate = tableData.filter(tableData => tableData.datetime === inputDate);
 
-    tbody.html("");
+    $tbody.html("");
 
     let response = {
         filterDate
