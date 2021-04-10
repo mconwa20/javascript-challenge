@@ -2,6 +2,7 @@
 var tableData = data;
 console.log(tableData)
 
+/*
 // references to table body, input and button
 var tbody = d3.select("tbody");
 var button = d3.select("#filter-btn");
