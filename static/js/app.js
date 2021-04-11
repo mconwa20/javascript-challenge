@@ -1,47 +1,66 @@
-// from data.js
+// (see 03-Evr_D3_Table)
+
+// INPUTTING TABLE DATA
+
 var tableData = data;
-console.log(tableData)
 
-/*
-// references to table body, input and button
+// Get a reference to the table body
 var tbody = d3.select("tbody");
-var button = d3.select("#filter-btn");
-var inputFieldDate = d3.select("#datetime");
-var inputFieldCity = d3.select("#city");
-var columns = ["datetime", "city", "state", "country", "shape", "durationMinutes", "comments"]
 
-// inputing data
-var addData = (dataInput) => {
-    dataInput.forEach(ufoSightings => {
-        var row = $tbody.append("tr");
-        columns.forEach(column => row.append("td").text(ufoSightings[column])
-        )
+// Console.log the ufo data from data.js
+
+// Loop Through `data` and console.log each ufo report object
+tableData.forEach((ufoSighting) => {
+    // Use d3 to append one table row 'tr' for each ufo report object
+    var row = tbody.append("tr");
+    // Use 'Object.entries' to console.log each ufo report value
+    Object.entries(ufoSighting).forEach(function([key, value]) => {
+        console.log(key, value);
+        //Append a cell to the row for each value
+        var cell = row.append("td");
+        //Use d3 to update each cell's text with ufo report values
+        cell.text(value);
     });
-}
+});
 
-addData(tableData);
+// (see 08_Ins_Forms)
 
-// event listener for the button
+// BUTTON
 
-button.on("click", () => {
+// Select the button
+var button = d3.select("#button");
 
+// Create event handlers for clicking the button or pressing the enter key
+button.on("click", runEnter);
+
+// Create the function to run for the above event
+function runEnter() {
+
+    // Prevent the page from refreshing
     d3.event.preventDefault();
+    // Select the input element and get the raw HTML node
+    var inputElement = d3.select("#datetime");
 
-    var inputDate = inputFieldDate.property("value").trim();
-    // console.log(inputDate)
-    // trim inputs
-    var filterDate = tableData.filter(tableData => tableData.datetime === inputDate);
+    var inputValue = inputElement.property("value");
 
-    $tbody.html("");
+    console.log(inputValue);
 
-    let response = {
-        filterDate
-    }
+    var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
+    // console.log filter values
+    console.log(filteredData);
 
-    // if response is available... add data
-    if(response.filterDate.length !== 0) {
-        addData(filterDate);
-    }
+    filteredData.forEach(function(selections) {
+
+        console.log(selections);
+        var row = tbody.append("tr")
+
+        Object.entries(selections).forEach(function([key, value]) {
+            console.log(key, value);
+
+            var cell = row.append("td");
+            cell.text(value);
+        })
+    })
 
     // if response is NOT available... add note to user
 
@@ -50,4 +69,4 @@ button.on("click", () => {
     }
 
 
-})
+}
