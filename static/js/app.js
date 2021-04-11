@@ -31,42 +31,23 @@ tableData.forEach((ufoSighting) => {
 var button = d3.select("#button");
 
 // Create event handlers for clicking the button or pressing the enter key
-button.on("click", runEnter);
+button.on("click", function());
 
-// Create the function to run for the above event
-function runEnter() {
-
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
     // Select the input element and get the raw HTML node
     var inputElement = d3.select("#datetime");
-
     var inputValue = inputElement.property("value");
-
     console.log(inputValue);
-
     var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
-    // console.log filter values
     console.log(filteredData);
 
     filteredData.forEach(function(selections) {
 
-        console.log(selections);
-        var row = tbody.append("tr")
-
-        Object.entries(selections).forEach(function([key, value]) {
-            console.log(key, value);
-
-            var cell = row.append("td");
-            cell.text(value);
-        })
-    })
-
-    // if response is NOT available... add note to user
-
-    else {
-        tbody.append("tr").append("td").text("No sightings. Try another search.")
-    }
-
-
-}
+    console.log(selections);
+    var row = tbody.append("tr")
+    Object.entries(selections).forEach(function([key, value]) {
+        console.log(key, value);
+        var cell = row.append("td");
+        cell.text(value);
+    });
+});
+});
