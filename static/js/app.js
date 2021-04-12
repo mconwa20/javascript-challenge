@@ -11,12 +11,12 @@ var tbody = d3.select("tbody");
 // Console.log the ufo data from data.js
 
 // Loop Through `data` and console.log each ufo report object
-tableData.forEach(ufoSighting) => {
+tableData.forEach(function(ufoSighting) {
     console.log(ufoSighting);
     // Use d3 to append one table row 'tr' for each ufo report object
     var row = tbody.append("tr");
     // Use 'Object.entries' to console.log each ufo report value
-    Object.entries(ufoSighting).forEach(function([key, value]) => {
+    Object.entries(ufoSighting).forEach(function([key, value]) {
         console.log(key, value);
         //Append a cell to the row for each value
         var cell = row.append("td");
@@ -30,10 +30,15 @@ tableData.forEach(ufoSighting) => {
 // BUTTON
 
 // Select the button
-var button = d3.select("#filter-btn");
+var button = d3.select("#button");
 
 // Create event handlers for clicking the button or pressing the enter key
-button.on("click", function() {
+button.on("click", runEnter);
+form.on("submit", runEnter);
+
+function runEnter() {
+
+    d3.event.preventDefault();
 
     // Select the input element and get the raw HTML node
     var inputElement = d3.select("#datetime");
