@@ -6,6 +6,8 @@ var tableData = data;
 // Get a reference to the table body
 var tbody = d3.select("tbody");
 
+console.log(data);
+
 // Loop Through `data` and console.log each ufo report object
 data.forEach(element => {
     console.log(element);
@@ -21,37 +23,20 @@ data.forEach(element => {
     });
 });
 
-// (see 08_Ins_Forms)
+// click function
 
-// BUTTON
+function runClick() {
+    var date = d3.select("#datetime").property("value");
+    var filterData = tableData;
+    if(date){
+        filterData = filterData.filter(x => x.datetime === date)
+    }
+    console.log(filterData);
+    buildTable(filterData);
+}
 
-// Select the button
-var button = d3.select("#button");
+// select filter button
 
-// Create event handlers for clicking the button or pressing the enter key
-button.on("click", runEnter);
-form.on("submit", runEnter);
+d3.select("#filter-btn").on("click", runClick);
 
-function runEnter() {
-    // Prevent page from refreshing
-    d3.event.preventDefault();
-
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#form-control");
-    var inputValue = inputElement.property("value");
-    console.log(inputValue);
-    console.log(tableData)
-    var filteredData = tableData.filter(sighting => sighting.datetime === inputValue);
-    console.log(filteredData);
-
-    filteredData.forEach(function(selections) {
-
-    console.log(selections);
-    var row = tbody.append("tr")
-    Object.entries(selections).forEach(function([key, value]) {
-        console.log(key, value);
-        var cell = row.append("td");
-        cell.text(value);
-    });
-});
-});
+buildTable(tableData)
